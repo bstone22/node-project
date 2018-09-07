@@ -10,6 +10,7 @@
 //logger.log('message');
 const os = require('os');
 const fs = require('fs');
+const EventEmitter = require('events');
 //const path = require('path');
 //var pathObj = path.parse(__filename);
 
@@ -27,3 +28,14 @@ fs.readdir('./', function(err,files) {
     if (err) console.log(err);
     else console.log(files);
 }); 
+
+const emitter = new EventEmitter();
+
+emitter.on('messageLogged', function(){
+    console.log('Lister called');
+});
+
+
+//used to raise an event within the application
+emitter.emit('messageLogged', 1, 'url');
+
