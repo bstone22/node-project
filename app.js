@@ -11,6 +11,7 @@
 const os = require('os');
 const fs = require('fs');
 const EventEmitter = require('events');
+const http = require('http');
 //const emitter = new EventEmitter();
 //const path = require('path');
 //var pathObj = path.parse(__filename);
@@ -42,3 +43,25 @@ logger.on('messageLogged', (arg) =>{
 });
 
 logger.log('message');
+
+const server = http.createServer((req, res) => {
+    if(req.url === '/'){
+        res.write("Yo YO World");
+        res.end();
+    }
+
+    if(req.url === '/api/courses'){
+        res.write(JSON.stringify([1,2,3]));
+        res.end();
+    }
+
+
+});
+
+// server.on('connection', (socket) => {
+//     console.log('New Connection');
+// });
+
+server.listen(3000);
+console.log('listening on port 3000');
+
